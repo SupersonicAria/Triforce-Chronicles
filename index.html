@@ -6,20 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triforce Chronicles</title>
     <link rel="stylesheet" href="style.css" type="text/css">
-    <script src="./index.js"></script>
+    <script src="index.js" type="text/javascript"></script>
 </head>
 <body>
     <div>
-        <h1 id="Pick">Choose Your Character</h1>
+        <h1 id="pick">Choose Your Character</h1>
     </div>
     <div>
-        <button id="Ganon">Ganon</button>
+        <img id="ganonImg" src="./assets/Ganon.png">
+        
+        <!-- button functionality from stack overflow -->
+        <button id="ganon" onclick="window.location.href='ganon.html'">Ganon</button>
     </div>
     <div>
-        <button id="Link">Link</button>
+
+        <img id="linkImg" src="./assets/Link.png">
+        <button id="link" onclick="window.location.href='link.html'">Link</button>
     </div>
     <div>
-        <button id="Zelda">Zelda</button>
+        <img id="zeldaImg" src="./assets/Zelda.png">
+        <button id="zelda" onclick="window.location.href='zelda.html'">Zelda</button>
     </div>
 </body>
 </html>
