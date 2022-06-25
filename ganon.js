@@ -28,7 +28,7 @@ let setupGame = function () {
 
 let attack = function () {
     if (uncle.hp >= 1 && playerTurn) {
-        dealDamagePlayer(2, ganon, 'Ganon', ganon.strength, 1, true, 1, uncle)
+        dealDamage(2, ganon, 'Ganon', ganon.strength, 1, true, 1, uncle)
 
         if (shade) {
             shadeAttack()
@@ -40,7 +40,7 @@ let attack = function () {
 
 let magic = function () {
     if (uncle.hp >= 1 && playerTurn) {
-        dealDamagePlayer(2, ganon, 'Ganon', ganon.magic, 1, true, 1.2, uncle)
+        dealDamage(2, ganon, 'Ganon', ganon.magic, 1, true, 1.2, uncle)
 
         if (shade) {
             shadeAttack()
@@ -52,14 +52,20 @@ let magic = function () {
 
 let fist = function () {
     if (uncle.hp >= 1 && playerTurn) {
-        dealDamagePlayer(2.5, ganon, 'Ganon', ganon.strength, 1.5, true, 1, uncle)
+
+        if (uncle.defense <= 1.5) {
+            dealDamage(2.5, ganon, 'Ganon', ganon.strength, 1.5, true, 1, uncle)
+            uncle.defense = uncle.defense + 0.1
+            alert(`Enemy defense reduced!`)
+        } else {
+            alert(`Enemy defense cannot go any lower!`)
+        }
 
         if (shade) {
             shadeAttack()
         }
 
-        uncle.defense = uncle.defense + 0.1
-        alert(`Enemy defense reduced!`)
+
 
         passTurn()
     }
@@ -77,10 +83,11 @@ let summon = function () {
 let shadeAttack = function () {
     if (uncle.hp >= 1 && playerTurn) {
 
-        dealDamagePlayer(4, ganon, 'Shade', ganon.strength, 1, false, 1, uncle)
+        dealDamage(4, ganon, 'Shade', ganon.strength, 1, false, 1, uncle)
 
         if (shadeCount == 1) {
             shade = false
+            alert(`The shade has disappeared...`)
         }
 
         shadeCount = shadeCount - 1
@@ -103,18 +110,25 @@ let passTurn = function () {
 }
 
 let enemyAttack = function () {
-    alert(`att!`)
+
+    alert(`Link\'s Uncle attacks with his sword!`)
+
+    takeDamage(4, 'Link\'s Uncle', uncle.strength, 1, ganon)
 }
 
 let enemyMagic = function () {
-    alert(`mag`)
+    alert(`Link\'s Uncle casts a magic spell!`)
+
+    takeDamage(3, 'Link\'s Uncle', uncle.magic, 1, ganon)
 }
 
 let uncleSpecial = function () {
-    alert(`spe`)
+    alert(`Link\'s Uncle performs a spin attack!`)
+
+    takeDamage(2, 'Link\'s Uncle', uncle.magic, 1.8, ganon)
 }
 
-let dealDamagePlayer = function (odds, player, playerName, stat, statBonus, luckCheck, luckOdds, enemy) {
+let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck, luckOdds, enemy) {
     //from codegrepper how to choose number between 1 and 6
     let roll = Math.floor(Math.random() * 6) + 1;
     let dmgCalc = roll / odds
@@ -140,6 +154,9 @@ let dealDamagePlayer = function (odds, player, playerName, stat, statBonus, luck
     let trueDmg = enemy.hp - appliedDmg
     let startHp = enemy.hp
     enemy.hp = trueDmg
+    if (enemy.hp < 0) {
+        enemy.hp = 0
+    }
     enemyHp = document.getElementById('enemyHp')
     enemyHp.textContent = `Enemy Hp:${enemy.hp}`
 
@@ -152,6 +169,25 @@ let dealDamagePlayer = function (odds, player, playerName, stat, statBonus, luck
     }
 }
 
+let takeDamage = function (odds, enemyName, stat, statBonus, player) {
+    let roll = Math.floor(Math.random() * 6) + 1;
+    let dmgCalc = roll / odds
+    let appliedDmg = dmgCalc * stat * statBonus
+
+    let integerCheck = appliedDmg % 1
+    if (integerCheck != 0) {
+        appliedDmg = Math.round(appliedDmg)
+    }
+
+    let trueDmg = player.hp - appliedDmg
+    let startHp = player.hp
+    player.hp = trueDmg
+    ganonHp = document.getElementById('playerHp')
+    ganonHp.textContent = `Hp:${player.hp}`
+
+    let dmgTaken = startHp - trueDmg
+    alert(`${enemyName} dealt ${dmgTaken} damage!`)
+}
 
 
 
