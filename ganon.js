@@ -8,7 +8,7 @@ let uncle = {
     hp: 800,
     strength: 18,
     magic: 12,
-    defense: 0.5
+    defense: 0.4
 }
 let ganonHp
 let uncleHp
@@ -26,46 +26,41 @@ let setupGame = function () {
     uncleHp.textContent = `Enemy Hp:${uncle.hp}`
 }
 
+
+
 let attack = function () {
-    if (uncle.hp >= 1 && playerTurn) {
+    if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
         dealDamage(2, ganon, 'Ganon', ganon.strength, 1, true, 1, uncle)
 
-        if (shade) {
-            shadeAttack()
-        }
+        
 
         passTurn()
     }
 }
 
 let magic = function () {
-    if (uncle.hp >= 1 && playerTurn) {
+    if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
         dealDamage(2, ganon, 'Ganon', ganon.magic, 1, true, 1.2, uncle)
 
-        if (shade) {
-            shadeAttack()
-        }
+        
 
         passTurn()
     }
 }
 
 let fist = function () {
-    if (uncle.hp >= 1 && playerTurn) {
+    if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
 
-        if (uncle.defense <= 1.5) {
+        if (uncle.defense <= 0.9) {
             dealDamage(2.5, ganon, 'Ganon', ganon.strength, 1.5, true, 1, uncle)
             uncle.defense = uncle.defense + 0.1
             alert(`Enemy defense reduced!`)
         } else {
+            dealDamage(2.5, ganon, 'Ganon', ganon.strength, 1.5, true, 1, uncle)
             alert(`Enemy defense cannot go any lower!`)
         }
 
-        if (shade) {
-            shadeAttack()
-        }
-
-
+        
 
         passTurn()
     }
@@ -77,11 +72,15 @@ let summon = function () {
         shadeCount = 5
         alert(`Shade Summoned!`)
         passTurn()
+    } else {
+        alert(`Shade has already been summoned...`)
+        
+        passTurn()
     }
 }
 
 let shadeAttack = function () {
-    if (uncle.hp >= 1 && playerTurn) {
+    if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
 
         dealDamage(4, ganon, 'Shade', ganon.strength, 1, false, 1, uncle)
 
@@ -110,22 +109,40 @@ let passTurn = function () {
 }
 
 let enemyAttack = function () {
+    if (shade) {
+        shadeAttack()
+    }
 
     alert(`Link\'s Uncle attacks with his sword!`)
 
     takeDamage(4, 'Link\'s Uncle', uncle.strength, 1, ganon)
+
+    checkGanonHealth()
 }
 
 let enemyMagic = function () {
+    if (shade) {
+        shadeAttack()
+    }
+
     alert(`Link\'s Uncle casts a magic spell!`)
 
     takeDamage(3, 'Link\'s Uncle', uncle.magic, 1, ganon)
+
+    checkGanonHealth()
 }
 
 let uncleSpecial = function () {
+    if (shade) {
+        shadeAttack()
+    }
+
     alert(`Link\'s Uncle performs a spin attack!`)
 
     takeDamage(2, 'Link\'s Uncle', uncle.magic, 1.8, ganon)
+
+    checkGanonHealth()
+    
 }
 
 let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck, luckOdds, enemy) {
@@ -170,6 +187,9 @@ let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck,
 }
 
 let takeDamage = function (odds, enemyName, stat, statBonus, player) {
+
+    
+
     let roll = Math.floor(Math.random() * 6) + 1;
     let dmgCalc = roll / odds
     let appliedDmg = dmgCalc * stat * statBonus
@@ -182,6 +202,9 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
     let trueDmg = player.hp - appliedDmg
     let startHp = player.hp
     player.hp = trueDmg
+    if (player.hp < 0) {
+        player.hp = 0
+    }
     ganonHp = document.getElementById('playerHp')
     ganonHp.textContent = `Hp:${player.hp}`
 
@@ -189,7 +212,41 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
     alert(`${enemyName} dealt ${dmgTaken} damage!`)
 }
 
+let loseGame = function() {
+    let messageBox = document.createElement('div')
+    let buttons = document.createElement('div')
+    let battleBox = document.getElementById('battle')
+    let moves = document.getElementById('moves')
+    
+    let loseMessage = document.createElement('h2')
+    loseMessage.textContent = "You Lose..."
 
+    let charSelect = document.createElement('button')
+    charSelect.innerHTML = "Return to Character Select"
+    charSelect.onclick = function () {
+        window.location.href='index.html'
+    }
+
+    moves.remove()
+    buttons.appendChild(charSelect)
+    messageBox.appendChild(loseMessage)
+    messageBox.appendChild(buttons)
+    battleBox.appendChild(messageBox)
+    
+    
+
+}
+
+let winGame = function() {
+
+}
+
+
+let checkGanonHealth = function() {
+    if (ganon.hp < 1) {
+        loseGame()
+    }
+}
 
 
 
