@@ -36,7 +36,11 @@ let attack = function () {
             shadeAttack()
         }
 
-        passTurn()
+        checkEnemyHealth()
+
+        if (uncle.hp > 0) {
+            passTurn()
+        }
     }
 }
 
@@ -48,7 +52,11 @@ let magic = function () {
             shadeAttack()
         }
 
-        passTurn()
+        checkEnemyHealth()
+
+        if (uncle.hp > 0) {
+            passTurn()
+        }
     }
 }
 
@@ -68,7 +76,11 @@ let fist = function () {
             shadeAttack()
         }
 
-        passTurn()
+        checkEnemyHealth()
+
+        if (uncle.hp > 0) {
+            passTurn()
+        }
     }
 }
 
@@ -77,7 +89,9 @@ let summon = function () {
         shade = true
         shadeCount = 5
         alert(`Shade Summoned!`)
-        passTurn()
+        if (uncle.hp > 0) {
+            passTurn()
+        }
     } else {
         alert(`Ganon\'s shade has already been summoned...`)
         
@@ -85,7 +99,11 @@ let summon = function () {
             shadeAttack()
         }
 
-        passTurn()
+        checkEnemyHealth()
+
+        if (uncle.hp > 0) {
+            passTurn()
+        }
     }
 }
 
@@ -219,6 +237,7 @@ let loseGame = function() {
     
     let loseMessage = document.createElement('h2')
     loseMessage.textContent = "You Lose..."
+    loseMessage.id = "loseMessage"
 
     let retry = document.createElement('button')
     retry.innerHTML = "Retry"
@@ -243,7 +262,27 @@ let loseGame = function() {
 }
 
 let winGame = function() {
+    let messageBox = document.createElement('div')
+    messageBox.id = "message"
+    let buttons = document.createElement('div')
+    let battleBox = document.getElementById('battle')
+    let moves = document.getElementById('moves')
+    
+    let winMessage = document.createElement('h2')
+    winMessage.textContent = "You Win!!"
+    winMessage.id = "winMessage"
 
+    let charSelect = document.createElement('button')
+    charSelect.innerHTML = "Return to Character Select"
+    charSelect.onclick = function () {
+        window.location.href='index.html'
+    }
+
+    moves.remove()
+    buttons.appendChild(charSelect)
+    messageBox.appendChild(winMessage)
+    messageBox.appendChild(buttons)
+    battleBox.appendChild(messageBox)
 }
 
 
@@ -251,6 +290,13 @@ let checkGanonHealth = function() {
     if (ganon.hp < 1) {
         alert(`Ganon\'s HP has been reduced to 0...`)
         loseGame()
+    }
+}
+
+let checkEnemyHealth = function() {
+    if (uncle.hp < 1) {
+        alert(`Link\'s Uncle has no HP Left!`)
+        winGame()
     }
 }
 
