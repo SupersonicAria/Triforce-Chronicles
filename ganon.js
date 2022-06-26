@@ -1,7 +1,7 @@
 let ganon = {
-    hp: 400,
-    strength: 20,
-    magic: 16,
+    hp: 500,
+    strength: 22,
+    magic: 20,
     luck: 0.03
 }
 let uncle = {
@@ -64,7 +64,7 @@ let fist = function () {
     if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
 
         if (uncle.defense <= 0.9) {
-            dealDamage(2.5, ganon, 'Ganon', ganon.strength, 1.5, true, 1, uncle)
+            dealDamage(2.5, ganon, 'Ganon', ganon.strength, 1.6, true, 1, uncle)
             uncle.defense = uncle.defense + 0.1
             alert(`Enemy defense reduced!`)
         } else {
@@ -110,7 +110,7 @@ let summon = function () {
 let shadeAttack = function () {
     if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
 
-        dealDamage(4, ganon, 'Ganon\'s shade', ganon.strength, 1, false, 1, uncle)
+        dealDamage(4, ganon, 'Ganon\'s shade', ganon.magic, 1, false, 1, uncle)
 
         if (shadeCount == 1) {
             shade = false
@@ -222,7 +222,7 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
         player.hp = 0
     }
     ganonHp = document.getElementById('playerHp')
-    ganonHp.textContent = `Hp:${player.hp}`
+    ganonHp.textContent = `Ganon\'s Hp:${player.hp}`
 
     let dmgTaken = startHp - trueDmg
     alert(`${enemyName} dealt ${dmgTaken} damage!`)
