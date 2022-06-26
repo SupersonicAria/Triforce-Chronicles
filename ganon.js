@@ -32,7 +32,9 @@ let attack = function () {
     if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
         dealDamage(2, ganon, 'Ganon', ganon.strength, 1, true, 1, uncle)
 
-        
+        if (shade) {
+            shadeAttack()
+        }
 
         passTurn()
     }
@@ -42,7 +44,9 @@ let magic = function () {
     if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
         dealDamage(2, ganon, 'Ganon', ganon.magic, 1, true, 1.2, uncle)
 
-        
+        if (shade) {
+            shadeAttack()
+        }
 
         passTurn()
     }
@@ -60,7 +64,9 @@ let fist = function () {
             alert(`Enemy defense cannot go any lower!`)
         }
 
-        
+        if (shade) {
+            shadeAttack()
+        }
 
         passTurn()
     }
@@ -73,8 +79,12 @@ let summon = function () {
         alert(`Shade Summoned!`)
         passTurn()
     } else {
-        alert(`Shade has already been summoned...`)
+        alert(`Ganon\'s shade has already been summoned...`)
         
+        if (shade) {
+            shadeAttack()
+        }
+
         passTurn()
     }
 }
@@ -82,11 +92,11 @@ let summon = function () {
 let shadeAttack = function () {
     if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
 
-        dealDamage(4, ganon, 'Shade', ganon.strength, 1, false, 1, uncle)
+        dealDamage(4, ganon, 'Ganon\'s shade', ganon.strength, 1, false, 1, uncle)
 
         if (shadeCount == 1) {
             shade = false
-            alert(`The shade has disappeared...`)
+            alert(`Ganon\'s shade has disappeared...`)
         }
 
         shadeCount = shadeCount - 1
@@ -109,10 +119,6 @@ let passTurn = function () {
 }
 
 let enemyAttack = function () {
-    if (shade) {
-        shadeAttack()
-    }
-
     alert(`Link\'s Uncle attacks with his sword!`)
 
     takeDamage(4, 'Link\'s Uncle', uncle.strength, 1, ganon)
@@ -121,10 +127,6 @@ let enemyAttack = function () {
 }
 
 let enemyMagic = function () {
-    if (shade) {
-        shadeAttack()
-    }
-
     alert(`Link\'s Uncle casts a magic spell!`)
 
     takeDamage(3, 'Link\'s Uncle', uncle.magic, 1, ganon)
@@ -133,10 +135,6 @@ let enemyMagic = function () {
 }
 
 let uncleSpecial = function () {
-    if (shade) {
-        shadeAttack()
-    }
-
     alert(`Link\'s Uncle performs a spin attack!`)
 
     takeDamage(2, 'Link\'s Uncle', uncle.magic, 1.8, ganon)
@@ -214,12 +212,20 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
 
 let loseGame = function() {
     let messageBox = document.createElement('div')
+    messageBox.id = "message"
     let buttons = document.createElement('div')
     let battleBox = document.getElementById('battle')
     let moves = document.getElementById('moves')
     
     let loseMessage = document.createElement('h2')
     loseMessage.textContent = "You Lose..."
+
+    let retry = document.createElement('button')
+    retry.innerHTML = "Retry"
+    retry.onclick = function () {
+        //Stack Overflow refresh page
+        window.location.reload()
+    }
 
     let charSelect = document.createElement('button')
     charSelect.innerHTML = "Return to Character Select"
@@ -228,13 +234,12 @@ let loseGame = function() {
     }
 
     moves.remove()
+    buttons.appendChild(retry)
     buttons.appendChild(charSelect)
     messageBox.appendChild(loseMessage)
     messageBox.appendChild(buttons)
     battleBox.appendChild(messageBox)
     
-    
-
 }
 
 let winGame = function() {
@@ -244,9 +249,12 @@ let winGame = function() {
 
 let checkGanonHealth = function() {
     if (ganon.hp < 1) {
+        alert(`Ganon\'s HP has been reduced to 0...`)
         loseGame()
     }
 }
+
+
 
 
 
