@@ -20,7 +20,7 @@ let playerTurn = true
 
 let setupGame = function () {
     ganonHp = document.getElementById('playerHp')
-    ganonHp.textContent = `Hp:${ganon.hp}`
+    ganonHp.textContent = `Ganon\'s Hp:${ganon.hp}`
 
     uncleHp = document.getElementById('enemyHp')
     uncleHp.textContent = `Enemy Hp:${uncle.hp}`
@@ -155,7 +155,7 @@ let enemyMagic = function () {
 let uncleSpecial = function () {
     alert(`Link\'s Uncle performs a spin attack!`)
 
-    takeDamage(2, 'Link\'s Uncle', uncle.magic, 1.8, ganon)
+    takeDamage(2, 'Link\'s Uncle', uncle.strength, 1.6, ganon)
 
     checkGanonHealth()
     
@@ -169,7 +169,7 @@ let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck,
 
     let isLuck = luckCheck
     if (isLuck) {
-        let luckRoll = player.luck * Math.floor(Math.random() * 33.4) * luckOdds
+        let luckRoll = player.luck * Math.floor(Math.random() * 34.37) * luckOdds
         if (luckRoll >= 1) {
             appliedDmg = appliedDmg * 2.5
             console.log("CRIT")
@@ -288,14 +288,14 @@ let winGame = function() {
 
 let checkGanonHealth = function() {
     if (ganon.hp < 1) {
-        alert(`Ganon\'s HP has been reduced to 0...`)
+        alert(`Ganon\'s Hp has been reduced to 0...`)
         loseGame()
     }
 }
 
 let checkEnemyHealth = function() {
     if (uncle.hp < 1) {
-        alert(`Link\'s Uncle has no HP Left!`)
+        alert(`Link\'s Uncle has no Hp Left!`)
         winGame()
     }
 }

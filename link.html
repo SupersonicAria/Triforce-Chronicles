@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,26 +10,31 @@
     <script src="./index.js"></script>
     <script src="./link.js"></script>
 </head>
-<body>
+
+<body onload='setupGame()'>
+
     <div id="battle">
         <h3 id="enemyHp"></h3>
         <img id="helm" src="./assets/Helmasaur.png">
         <h3 id="playerHp"></h3>
         <div id="moves">
             <div id="top">
-                <button id="attack">Attack</button>
-                <button id="magic">Magic</button>
+                <button id="attack" onclick="attack()">Attack</button>
+                <button id="magic" onclick="magic()">Magic</button>
             </div>
             <div id="bottom">
-                <button id="spin">Spin Attack</button>
-                <button id="deku">Deku Nut</button>
+                <button id="spin" onclick="spin()">Spin Attack</button>
+                <button id="bomb" onclick="bomb()">Bomb Arrow</button>
             </div>
+            <!-- Debug -->
+            <button id="testWin" onclick="winGame()">win</button>
+            <button id="testLose" onclick="loseGame()">lose</button>
+            <button id="return" onclick="window.location.href='index.html'">Return to Character Select</button>
         </div>
 
-        <!-- Debug -->
-        <button id="testWin">win</button>
-        <button id="testLose">lose</button>
-        <button id="return" onclick="window.location.href='index.html'">Return to Character Select</button>
+
     </div>
+
 </body>
+
 </html>
