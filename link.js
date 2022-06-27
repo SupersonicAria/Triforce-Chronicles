@@ -224,6 +224,7 @@ let loseGame = function () {
 
     let retry = document.createElement('button')
     retry.innerHTML = "Retry"
+    retry.id = "retry"
     retry.onclick = function () {
         //Stack Overflow refresh page
         window.location.reload()
@@ -231,6 +232,7 @@ let loseGame = function () {
 
     let charSelect = document.createElement('button')
     charSelect.innerHTML = "Return to Character Select"
+    charSelect.id = "charSelect"
     charSelect.onclick = function () {
         window.location.href = 'index.html'
     }
@@ -257,6 +259,7 @@ let winGame = function () {
 
     let charSelect = document.createElement('button')
     charSelect.innerHTML = "Return to Character Select"
+    charSelect.id = "charSelect"
     charSelect.onclick = function () {
         window.location.href = 'index.html'
     }

@@ -145,7 +145,7 @@ let mothSpecial = function () {
 let mothUlt = function () {
     inform('Mothula unleashes a hyper beam!')
 
-    takeDamage(0.5, 'Mothula', moth.magic, 6, zelda)
+    takeDamage(0.1, 'Mothula', moth.magic, 6, zelda)
 
     charge = false
 
@@ -231,6 +231,7 @@ let loseGame = function () {
 
     let retry = document.createElement('button')
     retry.innerHTML = "Retry"
+    retry.id = "retry"
     retry.onclick = function () {
         //Stack Overflow refresh page
         window.location.reload()
@@ -238,6 +239,7 @@ let loseGame = function () {
 
     let charSelect = document.createElement('button')
     charSelect.innerHTML = "Return to Character Select"
+    charSelect.id = "charSelect"
     charSelect.onclick = function () {
         window.location.href = 'index.html'
     }
@@ -264,6 +266,7 @@ let winGame = function () {
 
     let charSelect = document.createElement('button')
     charSelect.innerHTML = "Return to Character Select"
+    charSelect.id = "charSelect"
     charSelect.onclick = function () {
         window.location.href = 'index.html'
     }

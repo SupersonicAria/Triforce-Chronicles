@@ -1,0 +1,44 @@
+body {
+    background-color: #ee1d3c;
+    transform: translate(0, 60px);
+}
+
+#attack,
+#magic,
+#fist,
+#shade,
+#charSelect,
+#retry {
+    background-color: bisque;
+}
+
+#capsule {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#side {
+    transform: translate(0, 60px);
+    text-align: center;
+}
+
+#enemyHp {
+    text-align: right;
+    transform: translate(0, -20px);
+}
+
+#playerHp, #moves, #retry, #winMessage, #loseMessage {
+    transform: translate(0, 30px);
+}
+
+#charSelect {
+    transform: translate(10px, 30px);
+}
+
+#uncle {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transform: scale(2);
+}
