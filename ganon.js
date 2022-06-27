@@ -18,6 +18,7 @@ let shadeCount
 let crit = false
 let playerTurn = true
 
+
 let setupGame = function () {
     ganonHp = document.getElementById('playerHp')
     ganonHp.textContent = `Ganon\'s Hp:${ganon.hp}`
@@ -29,9 +30,10 @@ let setupGame = function () {
 
 
 let attack = function () {
+    clearInfo()
     if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
         dealDamage(2, ganon, 'Ganon', ganon.strength, 1, true, 1, uncle)
-
+        
         if (shade) {
             shadeAttack()
         }
@@ -45,6 +47,7 @@ let attack = function () {
 }
 
 let magic = function () {
+    clearInfo()
     if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
         dealDamage(2, ganon, 'Ganon', ganon.magic, 1, true, 1.2, uncle)
 
@@ -61,15 +64,16 @@ let magic = function () {
 }
 
 let fist = function () {
+    clearInfo()
     if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
 
         if (uncle.defense <= 0.9) {
             dealDamage(2.5, ganon, 'Ganon', ganon.strength, 1.6, true, 1, uncle)
             uncle.defense = uncle.defense + 0.1
-            alert(`Enemy defense reduced!`)
+            inform(`Enemy defense reduced!`)
         } else {
             dealDamage(2.5, ganon, 'Ganon', ganon.strength, 1.5, true, 1, uncle)
-            alert(`Enemy defense cannot go any lower!`)
+            inform(`Enemy defense cannot go any lower!`)
         }
 
         if (shade) {
@@ -85,15 +89,16 @@ let fist = function () {
 }
 
 let summon = function () {
+    clearInfo()
     if (!shade) {
         shade = true
         shadeCount = 5
-        alert(`Shade Summoned!`)
+        inform(`Shade Summoned!`)
         if (uncle.hp > 0) {
             passTurn()
         }
     } else {
-        alert(`Ganon\'s shade has already been summoned...`)
+        inform(`Ganon\'s shade has already been summoned...`)
         
         if (shade) {
             shadeAttack()
@@ -114,7 +119,7 @@ let shadeAttack = function () {
 
         if (shadeCount == 1) {
             shade = false
-            alert(`Ganon\'s shade has disappeared...`)
+            inform(`Ganon\'s shade has disappeared...`)
         }
 
         shadeCount = shadeCount - 1
@@ -137,7 +142,7 @@ let passTurn = function () {
 }
 
 let enemyAttack = function () {
-    alert(`Link\'s Uncle attacks with his sword!`)
+    inform(`Link\'s Uncle attacks with his sword!`)
 
     takeDamage(4, 'Link\'s Uncle', uncle.strength, 1, ganon)
 
@@ -145,7 +150,7 @@ let enemyAttack = function () {
 }
 
 let enemyMagic = function () {
-    alert(`Link\'s Uncle casts a magic spell!`)
+    inform(`Link\'s Uncle casts a magic spell!`)
 
     takeDamage(3, 'Link\'s Uncle', uncle.magic, 1, ganon)
 
@@ -153,7 +158,7 @@ let enemyMagic = function () {
 }
 
 let uncleSpecial = function () {
-    alert(`Link\'s Uncle performs a spin attack!`)
+    inform(`Link\'s Uncle performs a spin attack!`)
 
     takeDamage(2, 'Link\'s Uncle', uncle.strength, 1.6, ganon)
 
@@ -162,6 +167,8 @@ let uncleSpecial = function () {
 }
 
 let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck, luckOdds, enemy) {
+
+    
     //from codegrepper how to choose number between 1 and 6
     let roll = Math.floor(Math.random() * 6) + 1;
     let dmgCalc = roll / odds
@@ -195,9 +202,9 @@ let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck,
 
     let dmgTaken = startHp - trueDmg
     if (!crit) {
-        alert(`${playerName} dealt ${dmgTaken} damage!`)
+        inform(`${playerName} dealt ${dmgTaken} damage!`)
     } else {
-        alert(`${playerName} dealt ${dmgTaken} critical damage!`)
+        inform(`${playerName} dealt ${dmgTaken} critical damage!`)
         crit = false
     }
 }
@@ -225,7 +232,7 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
     ganonHp.textContent = `Ganon\'s Hp:${player.hp}`
 
     let dmgTaken = startHp - trueDmg
-    alert(`${enemyName} dealt ${dmgTaken} damage!`)
+    inform(`${enemyName} dealt ${dmgTaken} damage!`)
 }
 
 let loseGame = function() {
@@ -288,16 +295,34 @@ let winGame = function() {
 
 let checkGanonHealth = function() {
     if (ganon.hp < 1) {
-        alert(`Ganon\'s Hp has been reduced to 0...`)
+        inform(`Ganon\'s Hp has been reduced to 0...`)
         loseGame()
     }
 }
 
 let checkEnemyHealth = function() {
     if (uncle.hp < 1) {
-        alert(`Link\'s Uncle has no Hp Left!`)
+        inform(`Link\'s Uncle has no Hp Left!`)
         winGame()
     }
+}
+
+let createInfoBox =  async function (info) {
+    let infoBox = document.createElement('div')
+    infoBox.id = 'infoBox'
+    infoBox.textContent = info
+    return infoBox
+}
+
+let inform = async function (info) {
+    let infoBox = await createInfoBox(info)
+    let sideBox = document.getElementById('side')
+    sideBox.appendChild(infoBox)
+}
+
+let clearInfo = function () {
+    let sideBox = document.getElementById('side')
+    sideBox.textContent = ""
 }
 
 
