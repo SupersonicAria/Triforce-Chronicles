@@ -67,7 +67,7 @@ let arrow = function () {
 
     if (moth.hp >= 1 && playerTurn && zelda.hp >= 1) {
 
-        // let roll = 0.97 * Math.floor(Math.random() * 34.37) * 0.03
+        // 3% chance to hit
         let roll = Math.floor(Math.random() * 34.37) * .03
         if (roll >= 1) {
             inform("Zelda\'s arrow hits it\'s mark!")

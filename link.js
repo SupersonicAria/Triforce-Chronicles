@@ -137,7 +137,7 @@ let helmSpecial = function () {
     if (bombCount < 3) {
         takeDamage(2, 'The Helmasaur', helm.strength, 2.2, link)
     } else {
-        takeDamage(2, 'The Helmasaur', helm.strength, 1.2, link)
+        takeDamage(2, 'The Helmasaur', helm.strength, 0.5, link)
     }
     
 

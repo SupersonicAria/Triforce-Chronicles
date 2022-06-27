@@ -1,5 +1,5 @@
 body {
-    background-color: bisque;
+    background-color: rgb(255, 229, 198);
 }
 
 #title {
@@ -38,6 +38,10 @@ body {
 
 #zeldaImg {
     transform: scale(2);
+}
+
+button {
+    background-color: bisque;
 }
 
 #ganon {
