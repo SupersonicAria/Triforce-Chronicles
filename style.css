@@ -3,6 +3,53 @@ body {
 }
 
 #title {
-    
     color: #eed202;
+    text-align: center;
+}
+
+#pick {
+    text-align: center;
+}
+
+#ganonDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(1.5%, 40%);
+}
+
+#heroes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#linkDiv {
+    transform: translate(100%, 568%);
+}
+
+#linkImg {
+    transform: scale(2);
+}
+
+#zeldaDiv {
+    transform: translate(-100%, 500%);
+}
+
+#zeldaImg {
+    transform: scale(2);
+}
+
+#ganon {
+    color: #e30022;
+}
+
+#link {
+    color: #009900;
+    transform: translate(40%);
+}
+
+#zelda {
+    color: #a020f0;
+    transform: translate(40%);
 }

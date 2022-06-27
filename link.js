@@ -28,6 +28,7 @@ let setupGame = function () {
 
 
 let attack = function () {
+    clearInfo()
     if (helm.hp >= 1 && playerTurn && link.hp >= 1) {
         dealDamage(2, link, 'Link', link.strength, 1, true, 1, helm)
 
@@ -40,6 +41,7 @@ let attack = function () {
 }
 
 let magic = function () {
+    clearInfo()
     if (helm.hp >= 1 && playerTurn && link.hp >= 1) {
         dealDamage(2, link, 'Link', link.magic, 1, true, 1.2, helm)
 
@@ -52,6 +54,7 @@ let magic = function () {
 }
 
 let bomb = function () {
+    clearInfo()
     if (helm.hp >= 1 && playerTurn && link.hp >= 1) {
 
         if (helm.defense <= 0.9) {
@@ -59,22 +62,22 @@ let bomb = function () {
             bombCount++
             if (bombCount == 1) {
 
-                alert(`The Helmasaur\'s armor cracks...`)
+                inform(`The Helmasaur\'s armor cracks...`)
             }
             if (bombCount == 2) {
 
-                alert(`The Helmasaur\'s armor cracks some more...`)
+                inform(`The Helmasaur\'s armor cracks some more...`)
             }
             if (bombCount == 3) {
 
-                alert(`The Helmasaur is exposed!`)
+                inform(`The Helmasaur is exposed!`)
                 helm.defense = helm.defense + 0.5
-                alert(`Enemy defense reduced!`)
+                inform(`Enemy defense reduced!`)
             }
 
         } else {
             dealDamage(2, link, 'Link', link.strength, .8, false, 1, helm)
-            alert(`Enemy defense cannot go any lower!`)
+            inform(`Enemy defense cannot go any lower!`)
         }
 
         checkEnemyHealth()
@@ -86,8 +89,8 @@ let bomb = function () {
 }
 
 let spin = function () {
-
-    alert("Link performs a spin attack!")
+    clearInfo()
+    inform("Link performs a spin attack!")
     dealDamage(2, link, 'Link', link.strength, 1.4, true, 2, helm)
 
     checkEnemyHealth()
@@ -113,7 +116,7 @@ let passTurn = function () {
 }
 
 let enemyAttack = function () {
-    alert(`The Helmasaur swings it\'s tail!`)
+    inform(`The Helmasaur swings it\'s tail!`)
 
     takeDamage(4, 'The Helmasaur', helm.strength, 1, link)
 
@@ -121,7 +124,7 @@ let enemyAttack = function () {
 }
 
 let enemyMagic = function () {
-    alert(`The Helmasaur breathes fire!`)
+    inform(`The Helmasaur breathes fire!`)
 
     takeDamage(3, 'The Helmasaur', helm.magic, 1, link)
 
@@ -129,7 +132,7 @@ let enemyMagic = function () {
 }
 
 let helmSpecial = function () {
-    alert(`The Helmasaur charges with all it\'s might!`)
+    inform(`The Helmasaur charges with all it\'s might!`)
 
     if (bombCount < 3) {
         takeDamage(2, 'The Helmasaur', helm.strength, 2.2, link)
@@ -175,9 +178,9 @@ let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck,
 
     let dmgTaken = startHp - trueDmg
     if (!crit) {
-        alert(`${playerName} dealt ${dmgTaken} damage!`)
+        inform(`${playerName} dealt ${dmgTaken} damage!`)
     } else {
-        alert(`${playerName} dealt ${dmgTaken} critical damage!`)
+        inform(`${playerName} dealt ${dmgTaken} critical damage!`)
         crit = false
     }
 }
@@ -205,7 +208,7 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
     linkHp.textContent = `Link\'s Hp:${player.hp}`
 
     let dmgTaken = startHp - trueDmg
-    alert(`${enemyName} dealt ${dmgTaken} damage!`)
+    inform(`${enemyName} dealt ${dmgTaken} damage!`)
 }
 
 let loseGame = function () {
@@ -268,18 +271,35 @@ let winGame = function () {
 
 let checkLinkHealth = function () {
     if (link.hp < 1) {
-        alert(`Link\'s Hp has been reduced to 0...`)
+        inform(`Link\'s Hp has been reduced to 0...`)
         loseGame()
     }
 }
 
 let checkEnemyHealth = function () {
     if (helm.hp < 1) {
-        alert(`The Helmasaur has no Hp Left!`)
+        inform(`The Helmasaur has no Hp Left!`)
         winGame()
     }
 }
 
+let createInfoBox =  async function (info) {
+    let infoBox = document.createElement('div')
+    infoBox.id = 'infoBox'
+    infoBox.textContent = info
+    return infoBox
+}
+
+let inform = async function (info) {
+    let infoBox = await createInfoBox(info)
+    let sideBox = document.getElementById('side')
+    sideBox.appendChild(infoBox)
+}
+
+let clearInfo = function () {
+    let sideBox = document.getElementById('side')
+    sideBox.textContent = ""
+}
 
 //debug
 

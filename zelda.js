@@ -29,9 +29,9 @@ let setupGame = function () {
 
 
 let attack = function () {
+    clearInfo()
 
-    moth.strength = 10
-    moth.magic = 18
+    setMothStats(10, 18)
 
     if (moth.hp >= 1 && playerTurn && zelda.hp >= 1) {
         dealDamage(2, zelda, 'Zelda', zelda.strength, 1, true, 1, moth)
@@ -45,9 +45,9 @@ let attack = function () {
 }
 
 let magic = function () {
-
-    moth.strength = 10
-    moth.magic = 18
+    clearInfo()
+    
+    setMothStats(10, 18)
 
     if (moth.hp >= 1 && playerTurn && zelda.hp >= 1) {
         dealDamage(2, zelda, 'Zelda', zelda.magic, 1, true, 1.2, moth)
@@ -61,22 +61,22 @@ let magic = function () {
 }
 
 let arrow = function () {
-
-    moth.strength = 10
-    moth.magic = 18
+    clearInfo()
+    
+    setMothStats(10, 18)
 
     if (moth.hp >= 1 && playerTurn && zelda.hp >= 1) {
 
         // let roll = 0.97 * Math.floor(Math.random() * 34.37) * 0.03
         let roll = Math.floor(Math.random() * 34.37) * .03
         if (roll >= 1) {
-            alert("Zelda\'s arrow hits it\'s mark!")
+            inform("Zelda\'s arrow hits it\'s mark!")
             moth.hp = moth.hp - moth.hp
             mothHp = document.getElementById('enemyHp')
             mothHp.textContent = `Enemy Hp:${moth.hp}`
-            alert(`Zelda dealt 9999 damage!`)
+            inform(`Zelda dealt 9999 damage!`)
         } else {
-            alert("Mothula dodges the arrow...")
+            inform("Mothula dodges the arrow...")
         }
 
         checkEnemyHealth()
@@ -88,15 +88,14 @@ let arrow = function () {
 }
 
 let naru = function () {
+    clearInfo()
 
-    moth.strength = 10
-    moth.magic = 18
+    setMothStats(10, 18)
 
-    alert("Zelda casts Naru\'s love!")
-    alert("Zelda will not take damage this turn!")
+    inform("Zelda casts Naru\'s love!")
+    inform("Zelda will not take damage this turn!")
 
-    moth.strength = 0
-    moth.magic = 0
+    setMothStats(0, 0)
 
     passTurn()
 
@@ -122,7 +121,7 @@ let passTurn = function () {
 }
 
 let enemyAttack = function () {
-    alert(`Mothula beats it\'s wings!`)
+    inform(`Mothula beats it\'s wings!`)
 
     takeDamage(4, 'Mothula', moth.strength, 1, zelda)
 
@@ -130,7 +129,7 @@ let enemyAttack = function () {
 }
 
 let enemyMagic = function () {
-    alert(`Mothula shoots eye lasers!`)
+    inform(`Mothula shoots eye lasers!`)
 
     takeDamage(3, 'Mothula', moth.magic, 1, zelda)
 
@@ -138,13 +137,13 @@ let enemyMagic = function () {
 }
 
 let mothSpecial = function () {
-    alert(`Mothula is charging a powerful attack...`)
+    inform(`Mothula is charging a powerful attack...`)
 
     charge = true
 }
 
 let mothUlt = function () {
-    alert('Mothula unleashes a hyper beam!')
+    inform('Mothula unleashes a hyper beam!')
 
     takeDamage(0.5, 'Mothula', moth.magic, 6, zelda)
 
@@ -186,9 +185,9 @@ let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck,
 
     let dmgTaken = startHp - trueDmg
     if (!crit) {
-        alert(`${playerName} dealt ${dmgTaken} damage!`)
+        inform(`${playerName} dealt ${dmgTaken} damage!`)
     } else {
-        alert(`${playerName} dealt ${dmgTaken} critical damage!`)
+        inform(`${playerName} dealt ${dmgTaken} critical damage!`)
         crit = false
     }
 }
@@ -216,7 +215,7 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
     zeldaHp.textContent = `Zelda\'s Hp:${player.hp}`
 
     let dmgTaken = startHp - trueDmg
-    alert(`${enemyName} dealt ${dmgTaken} damage!`)
+    inform(`${enemyName} dealt ${dmgTaken} damage!`)
 }
 
 let loseGame = function () {
@@ -279,14 +278,37 @@ let winGame = function () {
 
 let checkZeldaHealth = function () {
     if (zelda.hp < 1) {
-        alert(`Zelda\'s Hp has been reduced to 0...`)
+        inform(`Zelda\'s Hp has been reduced to 0...`)
         loseGame()
     }
 }
 
 let checkEnemyHealth = function () {
     if (moth.hp < 1) {
-        alert(`Mothula has no Hp Left!`)
+        inform(`Mothula has no Hp Left!`)
         winGame()
     }
+}
+
+let setMothStats = function(str, mag) {
+    moth.strength = str
+    moth.magic = mag
+}
+
+let createInfoBox =  async function (info) {
+    let infoBox = document.createElement('div')
+    infoBox.id = 'infoBox'
+    infoBox.textContent = info
+    return infoBox
+}
+
+let inform = async function (info) {
+    let infoBox = await createInfoBox(info)
+    let sideBox = document.getElementById('side')
+    sideBox.appendChild(infoBox)
+}
+
+let clearInfo = function () {
+    let sideBox = document.getElementById('side')
+    sideBox.textContent = ""
 }
