@@ -1,13 +1,13 @@
 let link = {
     hp: 300,
-    strength: 15,
+    strength: 18,
     magic: 14,
     luck: 0.3
 }
 let helm = {
     hp: 600,
-    strength: 18,
-    magic: 10,
+    strength: 20,
+    magic: 14,
     defense: 0.5
 }
 let linkHp
@@ -145,14 +145,14 @@ let helmSpecial = function () {
 
 }
 
-let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck, luckOdds, enemy) {
+let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck, luckBonus, enemy) {
     let roll = Math.floor(Math.random() * 6) + 1;
     let dmgCalc = roll / odds
     let appliedDmg = dmgCalc * stat * statBonus
 
     let isLuck = luckCheck
     if (isLuck) {
-        let luckRoll = player.luck * Math.floor(Math.random() * 4.77) * luckOdds
+        let luckRoll = player.luck * Math.floor(Math.random() * 4.77) * luckBonus
         if (luckRoll >= 1) {
             appliedDmg = appliedDmg * 2.5
             console.log("CRIT")

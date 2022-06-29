@@ -6,14 +6,13 @@ let zelda = {
 }
 let moth = {
     hp: 600,
-    strength: 10,
-    magic: 18,
+    strength: 12,
+    magic: 20,
     defense: 1
 }
 let zeldaHp
 let mothHp
 let enemyHp
-let bombCount = 0
 let crit = false
 let playerTurn = true
 let charge = false
@@ -25,8 +24,6 @@ let setupGame = function () {
     mothHp = document.getElementById('enemyHp')
     mothHp.textContent = `Enemy Hp:${moth.hp}`
 }
-
-
 
 let attack = function () {
     clearInfo()
@@ -104,7 +101,6 @@ let naru = function () {
 let passTurn = function () {
     let attackRoll = Math.floor(Math.random() * 5) + 1;
 
-
     if (!charge) {
         if (attackRoll == 1 || attackRoll == 2) {
             enemyAttack()
@@ -152,14 +148,14 @@ let mothUlt = function () {
     checkZeldaHealth()
 }
 
-let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck, luckOdds, enemy) {
+let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck, luckBonus, enemy) {
     let roll = Math.floor(Math.random() * 6) + 1;
     let dmgCalc = roll / odds
     let appliedDmg = dmgCalc * stat * statBonus
 
     let isLuck = luckCheck
     if (isLuck) {
-        let luckRoll = player.luck * Math.floor(Math.random() * 4.4) * luckOdds
+        let luckRoll = player.luck * Math.floor(Math.random() * 4.4) * luckBonus
         if (luckRoll >= 1) {
             appliedDmg = appliedDmg * 2.5
             console.log("CRIT")
@@ -193,8 +189,6 @@ let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck,
 }
 
 let takeDamage = function (odds, enemyName, stat, statBonus, player) {
-
-
 
     let roll = Math.floor(Math.random() * 6) + 1;
     let dmgCalc = roll / odds

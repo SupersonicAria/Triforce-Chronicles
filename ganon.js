@@ -67,6 +67,8 @@ let fist = function () {
     clearInfo()
     if (uncle.hp >= 1 && playerTurn && ganon.hp >= 1) {
 
+        inform(`Ganon delivers a devastating blow!`)
+
         if (uncle.defense <= 0.9) {
             dealDamage(2.5, ganon, 'Ganon', ganon.strength, 1.6, true, 1, uncle)
             uncle.defense = uncle.defense + 0.1
@@ -163,10 +165,9 @@ let uncleSpecial = function () {
     takeDamage(2, 'Link\'s Uncle', uncle.strength, 1.6, ganon)
 
     checkGanonHealth()
-    
 }
 
-let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck, luckOdds, enemy) {
+let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck, luckBonus, enemy) {
 
     
     //from codegrepper how to choose number between 1 and 6
@@ -176,7 +177,7 @@ let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck,
 
     let isLuck = luckCheck
     if (isLuck) {
-        let luckRoll = player.luck * Math.floor(Math.random() * 34.37) * luckOdds
+        let luckRoll = player.luck * Math.floor(Math.random() * 34.37) * luckBonus
         if (luckRoll >= 1) {
             appliedDmg = appliedDmg * 2.5
             console.log("CRIT")
@@ -210,8 +211,6 @@ let dealDamage = function (odds, player, playerName, stat, statBonus, luckCheck,
 }
 
 let takeDamage = function (odds, enemyName, stat, statBonus, player) {
-
-    
 
     let roll = Math.floor(Math.random() * 6) + 1;
     let dmgCalc = roll / odds
