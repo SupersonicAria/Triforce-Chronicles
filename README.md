@@ -29,8 +29,8 @@ Each enemy also has unique attacks that must have strategy built arround them!
 
 
 
-To Do:
--Add music/sound effects
+Bugs:
+-Audio file will not play if action is taken too soon
 
 NES CSS Framework was used: https://nostalgic-css.github.io/NES.css/
 
