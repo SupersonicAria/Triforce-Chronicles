@@ -12,21 +12,39 @@
     <script src="./index.js"></script>
     <script src="./zelda.js"></script>
 </head>
-
-<body onload='setupGame()'>
+<audio id = 'attackSound'>
+    <source src="./assets/audio/damage.mp3" type="audio/mpeg">
+    <source src="./assets/audio/damage.wav" type="audio/wav">
+</audio>
+<audio id = 'arrowSound'>
+    <source src="./assets/audio/arrow.mp3" type="audio/mpeg">
+    <source src="./assets/audio/arrow.wav" type="audio/wav">
+</audio>
+<audio id = 'naruSound'>
+    <source src="./assets/audio/magic.mp3" type="audio/mpeg">
+    <source src="./assets/audio/magic.wav" type="audio/wav">
+</audio>
+<audio id = 'music'>
+    <source src="assets/audio/boss.mp3" type="audio/mpeg">
+    <source src="assets/audio/boss.wav" type="audio/wav">
+</audio>
+<audio id = 'winTune'>
+    <source src="assets/audio/victory.mp3" type="audio/mpeg">
+    <source src="assets/audio/victory.wav" type="audio/wav">
+</audio>
+<audio id = 'loseTune'>
+    <source src="assets/audio/lose.mp3" type="audio/mpeg">
+    <source src="assets/audio/lose.wav" type="audio/wav">
+</audio>
+<body>
     <div id="capsule">
         <div id="battle">
             <h3 id="enemyHp"></h3>
             <img id="mothula" src="./assets/Mothula.gif">
             <h3 id="playerHp"></h3>
             <div id="moves">
-                <div id="top">
-                    <button id="attack" onclick="attack()">Attack</button>
-                    <button id="magic" onclick="magic()">Magic</button>
-                </div>
-                <div id="bottom">
-                    <button id="lightArrow" onclick="arrow()">Light Arrow</button>
-                    <button id="naru" onclick="naru()">Naru's Love</button>
+                <div id="start">
+                    <button id = "startBtn" onclick="setupGame()">Start!</button>
                 </div>
                 <!-- Debug -->
                 <!-- <button id="testWin" onclick="winGame()">win</button>
@@ -36,6 +54,18 @@
         </div>
     </div>
     <div id='side'></div>
+    <audio id = 'attackSound'>
+        <source src="./assets/audio/damage.mp3" type="audio/mpeg">
+        <source src="./assets/audio/damage.wav" type="audio/wav">
+    </audio>
+    <audio id = 'arrowSound'>
+        <source src="./assets/audio/arrow.mp3" type="audio/mpeg">
+        <source src="./assets/audio/arrow.wav" type="audio/wav">
+    </audio>
+    <audio id = 'naruSound'>
+        <source src="./assets/audio/magic.mp3" type="audio/mpeg">
+        <source src="./assets/audio/magic.wav" type="audio/wav">
+    </audio>
 </body>
 
 </html>

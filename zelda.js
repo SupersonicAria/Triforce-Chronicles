@@ -18,11 +18,60 @@ let playerTurn = true
 let charge = false
 
 let setupGame = function () {
+    let srt = document.getElementById('start')
+    srt.remove()
+
+    let tune = document.getElementById('music')
+    tune.play()
+
     zeldaHp = document.getElementById('playerHp')
     zeldaHp.textContent = `Zelda\'s Hp:${zelda.hp}`
 
     mothHp = document.getElementById('enemyHp')
     mothHp.textContent = `Enemy Hp:${moth.hp}`
+
+    let moves = document.getElementById('moves')
+
+    let attk = document.createElement('button')
+    attk.innerHTML = "Attack"
+    attk.id = "attack"
+    attk.onclick = function () {
+        attack()
+    }
+
+    let mag = document.createElement('button')
+    mag.innerHTML = "Magic"
+    mag.id = "magic"
+    mag.onclick = function () {
+        magic()
+    }
+
+    let spn = document.createElement('button')
+    spn.innerHTML = "Light Arrow"
+    spn.id = "lightArrow"
+    spn.onclick = function () {
+        arrow()
+    }
+
+    let bmb = document.createElement('button')
+    bmb.innerHTML = "Naru\'s Love"
+    bmb.id = "naru"
+    bmb.onclick = function () {
+        naru()
+    }
+
+    let top = document.createElement('div')
+    top.id = "top"
+    let bottom = document.createElement('div')
+    bottom.id = "bottom"
+
+    top.appendChild(attk)
+    top.appendChild(mag)
+    bottom.appendChild(spn)
+    bottom.appendChild(bmb)
+
+    moves.appendChild(top)
+    moves.appendChild(bottom)
 }
 
 let attack = function () {
@@ -32,6 +81,8 @@ let attack = function () {
 
     if (moth.hp >= 1 && playerTurn && zelda.hp >= 1) {
         dealDamage(2, zelda, 'Zelda', zelda.strength, 1, true, 1, moth)
+
+        playAudio('attackSound')
 
         checkEnemyHealth()
 
@@ -48,6 +99,8 @@ let magic = function () {
 
     if (moth.hp >= 1 && playerTurn && zelda.hp >= 1) {
         dealDamage(2, zelda, 'Zelda', zelda.magic, 1, true, 1.2, moth)
+
+        playAudio('attackSound')
 
         checkEnemyHealth()
 
@@ -76,6 +129,8 @@ let arrow = function () {
             inform("Mothula dodges the arrow...")
         }
 
+        playAudio('arrowSound')
+
         checkEnemyHealth()
 
         if (moth.hp > 0) {
@@ -93,6 +148,8 @@ let naru = function () {
     inform("Zelda will not take damage this turn!")
 
     setMothStats(0, 0)
+
+    playAudio('naruSound')
 
     passTurn()
 
@@ -213,6 +270,14 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
 }
 
 let loseGame = function () {
+
+    let tune = document.getElementById('music')
+    tune.pause()
+    tune.currentTime = 0
+
+    let loseTune = document.getElementById('loseTune')
+    loseTune.play()
+
     let messageBox = document.createElement('div')
     messageBox.id = "message"
     let buttons = document.createElement('div')
@@ -248,6 +313,14 @@ let loseGame = function () {
 }
 
 let winGame = function () {
+
+    let tune = document.getElementById('music')
+    tune.pause()
+    tune.currentTime = 0
+
+    let winTune = document.getElementById('winTune')
+    winTune.play()
+
     let messageBox = document.createElement('div')
     messageBox.id = "message"
     let buttons = document.createElement('div')
@@ -308,4 +381,9 @@ let inform = async function (info) {
 let clearInfo = function () {
     let sideBox = document.getElementById('side')
     sideBox.textContent = ""
+}
+
+let playAudio = function (song) {
+    let music = document.getElementById(song)
+    music.play()
 }

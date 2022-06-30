@@ -20,11 +20,61 @@ let playerTurn = true
 
 
 let setupGame = function () {
+
+    let srt = document.getElementById('start')
+    srt.remove()
+
+    let tune = document.getElementById('music')
+    tune.play()
+
     ganonHp = document.getElementById('playerHp')
     ganonHp.textContent = `Ganon\'s Hp:${ganon.hp}`
 
     uncleHp = document.getElementById('enemyHp')
     uncleHp.textContent = `Enemy Hp:${uncle.hp}`
+
+    let moves = document.getElementById('moves')
+
+    let attk = document.createElement('button')
+    attk.innerHTML = "Attack"
+    attk.id = "attack"
+    attk.onclick = function () {
+        attack()
+    }
+
+    let mag = document.createElement('button')
+    mag.innerHTML = "Magic"
+    mag.id = "magic"
+    mag.onclick = function () {
+        magic()
+    }
+
+    let spn = document.createElement('button')
+    spn.innerHTML = "Warlock Punch"
+    spn.id = "fist"
+    spn.onclick = function () {
+        fist()
+    }
+
+    let bmb = document.createElement('button')
+    bmb.innerHTML = "Summon Shade"
+    bmb.id = "shade"
+    bmb.onclick = function () {
+        summon()
+    }
+
+    let top = document.createElement('div')
+    top.id = "top"
+    let bottom = document.createElement('div')
+    bottom.id = "bottom"
+
+    top.appendChild(attk)
+    top.appendChild(mag)
+    bottom.appendChild(spn)
+    bottom.appendChild(bmb)
+
+    moves.appendChild(top)
+    moves.appendChild(bottom)
 }
 
 
@@ -37,6 +87,8 @@ let attack = function () {
         if (shade) {
             shadeAttack()
         }
+
+        playAudio('attackSound')
 
         checkEnemyHealth()
 
@@ -54,6 +106,8 @@ let magic = function () {
         if (shade) {
             shadeAttack()
         }
+
+        playAudio('attackSound')
 
         checkEnemyHealth()
 
@@ -82,6 +136,8 @@ let fist = function () {
             shadeAttack()
         }
 
+        playAudio('fistSound')
+
         checkEnemyHealth()
 
         if (uncle.hp > 0) {
@@ -92,10 +148,12 @@ let fist = function () {
 
 let summon = function () {
     clearInfo()
+
     if (!shade) {
         shade = true
         shadeCount = 5
         inform(`Shade Summoned!`)
+        playAudio('summonSound')
         if (uncle.hp > 0) {
             passTurn()
         }
@@ -105,6 +163,8 @@ let summon = function () {
         if (shade) {
             shadeAttack()
         }
+
+        playAudio('fail')
 
         checkEnemyHealth()
 
@@ -235,6 +295,12 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
 }
 
 let loseGame = function() {
+    let tune = document.getElementById('music')
+    tune.pause()
+    tune.currentTime = 0
+
+    let loseTune = document.getElementById('loseTune')
+    loseTune.play()
     let messageBox = document.createElement('div')
     messageBox.id = "message"
     let buttons = document.createElement('div')
@@ -270,6 +336,12 @@ let loseGame = function() {
 }
 
 let winGame = function() {
+    let tune = document.getElementById('music')
+    tune.pause()
+    tune.currentTime = 0
+
+    let winTune = document.getElementById('winTune')
+    winTune.play()
     let messageBox = document.createElement('div')
     messageBox.id = "message"
     let buttons = document.createElement('div')
@@ -325,6 +397,11 @@ let inform = async function (info) {
 let clearInfo = function () {
     let sideBox = document.getElementById('side')
     sideBox.textContent = ""
+}
+
+let playAudio = function (song) {
+    let music = document.getElementById(song)
+    music.play()
 }
 
 

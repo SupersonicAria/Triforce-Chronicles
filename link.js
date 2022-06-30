@@ -17,12 +17,64 @@ let bombCount = 0
 let crit = false
 let playerTurn = true
 
+
+
 let setupGame = function () {
+
+    let srt = document.getElementById('start')
+    srt.remove()
+
+    let tune = document.getElementById('music')
+    tune.play()
+
     linkHp = document.getElementById('playerHp')
     linkHp.textContent = `Link\'s Hp:${link.hp}`
 
     helmHp = document.getElementById('enemyHp')
     helmHp.textContent = `Enemy Hp:${helm.hp}`
+
+    let moves = document.getElementById('moves')
+
+    let attk = document.createElement('button')
+    attk.innerHTML = "Attack"
+    attk.id = "attack"
+    attk.onclick = function () {
+        attack()
+    }
+
+    let mag = document.createElement('button')
+    mag.innerHTML = "Magic"
+    mag.id = "magic"
+    mag.onclick = function () {
+        magic()
+    }
+
+    let spn = document.createElement('button')
+    spn.innerHTML = "Spin Attack"
+    spn.id = "spin"
+    spn.onclick = function () {
+        spin()
+    }
+
+    let bmb = document.createElement('button')
+    bmb.innerHTML = "Bomb Arrow"
+    bmb.id = "bomb"
+    bmb.onclick = function () {
+        bomb()
+    }
+
+    let top = document.createElement('div')
+    top.id = "top"
+    let bottom = document.createElement('div')
+    bottom.id = "bottom"
+
+    top.appendChild(attk)
+    top.appendChild(mag)
+    bottom.appendChild(spn)
+    bottom.appendChild(bmb)
+
+    moves.appendChild(top)
+    moves.appendChild(bottom)
 }
 
 
@@ -34,6 +86,8 @@ let attack = function () {
 
         checkEnemyHealth()
 
+        playAudio('attackSound')
+    
         if (helm.hp > 0) {
             passTurn()
         }
@@ -46,6 +100,8 @@ let magic = function () {
         dealDamage(2, link, 'Link', link.magic, 1, true, 1.2, helm)
 
         checkEnemyHealth()
+
+        playAudio('attackSound')
 
         if (helm.hp > 0) {
             passTurn()
@@ -61,15 +117,12 @@ let bomb = function () {
             dealDamage(2, link, 'Link', link.strength, .8, false, 1, helm)
             bombCount++
             if (bombCount == 1) {
-
                 inform(`The Helmasaur\'s armor cracks...`)
             }
             if (bombCount == 2) {
-
                 inform(`The Helmasaur\'s armor cracks some more...`)
             }
             if (bombCount == 3) {
-
                 inform(`The Helmasaur is exposed!`)
                 helm.defense = helm.defense + 0.5
                 inform(`Enemy defense reduced!`)
@@ -81,6 +134,8 @@ let bomb = function () {
         }
 
         checkEnemyHealth()
+
+        playAudio('bombSound')
 
         if (helm.hp > 0) {
             passTurn()
@@ -94,6 +149,8 @@ let spin = function () {
     dealDamage(2, link, 'Link', link.strength, 1.4, true, 2, helm)
 
     checkEnemyHealth()
+
+    playAudio('spinSound')
 
     if (helm.hp > 0) {
         passTurn()
@@ -212,6 +269,13 @@ let takeDamage = function (odds, enemyName, stat, statBonus, player) {
 }
 
 let loseGame = function () {
+    let tune = document.getElementById('music')
+    tune.pause()
+    tune.currentTime = 0
+
+    let loseTune = document.getElementById('loseTune')
+    loseTune.play()
+    
     let messageBox = document.createElement('div')
     messageBox.id = "message"
     let buttons = document.createElement('div')
@@ -247,6 +311,14 @@ let loseGame = function () {
 }
 
 let winGame = function () {
+    
+    let tune = document.getElementById('music')
+    tune.pause()
+    tune.currentTime = 0
+
+    let winTune = document.getElementById('winTune')
+    winTune.play()
+
     let messageBox = document.createElement('div')
     messageBox.id = "message"
     let buttons = document.createElement('div')
@@ -302,6 +374,11 @@ let inform = async function (info) {
 let clearInfo = function () {
     let sideBox = document.getElementById('side')
     sideBox.textContent = ""
+}
+
+let playAudio = function (song) {
+    let music = document.getElementById(song)
+    music.play()
 }
 
 //debug

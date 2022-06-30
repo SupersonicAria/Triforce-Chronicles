@@ -7,9 +7,14 @@ body {
 #magic,
 #spin,
 #bomb,
+#startBtn,
 #charSelect,
 #retry {
     background-color: bisque;
+}
+
+#startBtn{
+    transform: translate(57px);
 }
 
 #capsule {

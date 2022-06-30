@@ -12,21 +12,39 @@
     <script src="./index.js"></script>
     <script src="./link.js"></script>
 </head>
-
-<body onload='setupGame()'>
+<audio id = 'attackSound'>
+    <source src="./assets/audio/damage.mp3" type="audio/mpeg">
+    <source src="./assets/audio/damage.wav" type="audio/wav">
+</audio>
+<audio id = 'spinSound'>
+    <source src="./assets/audio/spinAttack.mp3" type="audio/mpeg">
+    <source src="./assets/audio/spinAttack.wav" type="audio/wav">
+</audio>
+<audio id = 'bombSound'>
+    <source src="./assets/audio/bomb.mp3" type="audio/mpeg">
+    <source src="./assets/audio/bomb.wav" type="audio/wav">
+</audio>
+<audio id = 'music'>
+    <source src="assets/audio/bigBoss.mp3" type="audio/mpeg">
+    <source src="assets/audio/bigBoss.wav" type="audio/wav">
+</audio>
+<audio id = 'winTune'>
+    <source src="assets/audio/victory.mp3" type="audio/mpeg">
+    <source src="assets/audio/victory.wav" type="audio/wav">
+</audio>
+<audio id = 'loseTune'>
+    <source src="assets/audio/lose.mp3" type="audio/mpeg">
+    <source src="assets/audio/lose.wav" type="audio/wav">
+</audio>
+<body>
     <div id="capsule">
         <div id="battle">
             <h3 id="enemyHp"></h3>
             <img id="helm" src="./assets/Helmasaur.png">
             <h3 id="playerHp"></h3>
             <div id="moves">
-                <div id="top">
-                    <button id="attack" onclick="attack()">Attack</button>
-                    <button id="magic" onclick="magic()">Magic</button>
-                </div>
-                <div id="bottom">
-                    <button id="spin" onclick="spin()">Spin Attack</button>
-                    <button id="bomb" onclick="bomb()">Bomb Arrow</button>
+                <div id="start">
+                    <button id = "startBtn" onclick="setupGame()">Start!</button>
                 </div>
                 <!-- Debug -->
                 <!-- <button id="testWin" onclick="winGame()">win</button>
@@ -36,7 +54,7 @@
         </div>
     </div>
     <div id='side'></div>
-
+    
 </body>
 
 </html>
