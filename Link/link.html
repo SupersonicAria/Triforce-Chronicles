@@ -5,32 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ganon</title>
+    <title>Link</title>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="ganon.css" type="text/css">
+    <link rel="stylesheet" href="./scss/style.css" type="text/css">
     <script src="./index.js"></script>
-    <script src="./ganon.js"></script>
+    <script src="./link.js"></script>
 </head>
 <audio id = 'attackSound'>
     <source src="./assets/audio/damage.mp3" type="audio/mpeg">
     <source src="./assets/audio/damage.wav" type="audio/wav">
 </audio>
-<audio id = 'fistSound'>
-    <source src="./assets/audio/punch.mp3" type="audio/mpeg">
-    <source src="./assets/audio/punch.wav" type="audio/wav">
+<audio id = 'spinSound'>
+    <source src="./assets/audio/spinAttack.mp3" type="audio/mpeg">
+    <source src="./assets/audio/spinAttack.wav" type="audio/wav">
 </audio>
-<audio id = 'summonSound'>
-    <source src="./assets/audio/summon.mp3" type="audio/mpeg">
-    <source src="./assets/audio/summon.wav" type="audio/wav">
-</audio>
-<audio id = 'fail'>
-    <source src="./assets/audio/fail.mp3" type="audio/mpeg">
-    <source src="./assets/audio/fail.wav" type="audio/wav">
+<audio id = 'bombSound'>
+    <source src="./assets/audio/bomb.mp3" type="audio/mpeg">
+    <source src="./assets/audio/bomb.wav" type="audio/wav">
 </audio>
 <audio id = 'music'>
-    <source src="assets/audio/castle.mp3" type="audio/mpeg">
-    <source src="assets/audio/castle.wav" type="audio/wav">
+    <source src="assets/audio/bigBoss.mp3" type="audio/mpeg">
+    <source src="assets/audio/bigBoss.wav" type="audio/wav">
 </audio>
 <audio id = 'winTune'>
     <source src="assets/audio/victory.mp3" type="audio/mpeg">
@@ -43,9 +39,8 @@
 <body>
     <div id="capsule">
         <div id="battle">
-
             <h3 id="enemyHp"></h3>
-            <img id="uncle" src="./assets/Uncle.png">
+            <img id="helm" src="./assets/Helmasaur.png">
             <h3 id="playerHp"></h3>
             <div id="moves">
                 <div id="start">
@@ -59,6 +54,7 @@
         </div>
     </div>
     <div id='side'></div>
+    
 </body>
 
 </html>

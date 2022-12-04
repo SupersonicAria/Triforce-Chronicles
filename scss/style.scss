@@ -1,0 +1,62 @@
+@import "config";
+@import "utilities";
+
+body {
+    @include set-bg($body-color);
+}
+
+#title {
+    @include set-color($title-color);
+    text-align: center;
+}
+
+#pick {
+    text-align: center;
+}
+
+#ganonDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include set-trans(1.5%, 40%);
+}
+
+#heroes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#linkDiv {
+    @include set-trans(100%, 568%);
+}
+
+#linkImg {
+    @include set-scale(2);
+}
+
+#zeldaDiv {
+    @include set-trans(-100%, 500%);
+}
+
+#zeldaImg {
+    @include set-scale(2);
+}
+
+button {
+    @include set-bg($button-color);
+}
+
+#ganon {
+    @include set-color($ganon-color);
+}
+
+#link {
+    @include set-color($link-color);
+    @include set-tran(40%);
+}
+
+#zelda {
+    @include set-color($zelda-color);
+    @include set-tran(40%);
+}

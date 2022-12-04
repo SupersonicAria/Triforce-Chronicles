@@ -1,0 +1,19 @@
+@mixin set-bg($color) {
+    background-color: $color;
+}
+
+@mixin set-color($color) {
+    background-color: $color;
+}
+
+@mixin set-scale($num) {
+    transform: scale($num);
+}
+
+@mixin set-trans($num, $ber) {
+    transform: translate($num, $ber);
+}
+
+@mixin set-tran($num) {
+    transform: translate($num);
+}
